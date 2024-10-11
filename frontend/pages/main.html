@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../frontend/node_modules/admin-lte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../frontend/node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <script src="../../frontend/node_modules/admin-lte/plugins/jquery/jquery.min.js" defer></script>
+    <script src="../../frontend/node_modules/admin-lte/dist/js/adminlte.min.js" defer></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .logo-img {
+            width: 98px;
+            height: 40px;
+        }
+
+        .logo {
+            margin-top: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+            display: block;
+            padding-bottom: 20px;
+        }
+
+        .main-sidebar {
+            width: 219px;
+            font-size: 14px;
+        }
+
+        .brand-link {
+            padding-bottom: 40px;
+            padding-top: 20px;
+            width: 219px;
+        }
+
+        .brand-link:hover {
+            color: black;
+        }
+
+        .brand-link .brand-image {
+            width: 36px;
+            height: 36px;
+        }
+
+        .brand-link span {
+            font-size: 14px;
+        }
+
+        .balance {
+            margin-bottom: 20px;
+            margin-left: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .balance span {
+            color: #0D6EFD;
+        }
+    </style>
+</head>
+<body>
+<aside class="main-sidebar border-right">
+
+    <a href="#" class="logo border-bottom">
+        <img src="../static/images/logo.png" class="logo-img" alt="AdminLTE Logo" style="opacity: .8">
+    </a>
+
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-house-user"></i>
+                        <p>
+                            Главная
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-money-bill"></i>
+                        <p>
+                            Доходы & Расходы
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <p>
+                            Категории
+                            <i class="right fas fa-angle-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <p>Доходы</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <p>Расходы</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="sidebar-bottom fixed-bottom">
+        <div class="balance">
+            Баланс: <span>  500$</span>
+        </div>
+
+        <div class="brand-link border-top d-flex align-items-center">
+            <img src="../static/images/user.png" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .8">
+            <span>RomanChernov</span>
+        </div>
+    </div>
+</aside>
+
+<section class="main">
+    <h1>Главная</h1>
+
+</section>
+</body>
+</html>

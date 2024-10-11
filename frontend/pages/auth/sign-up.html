@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../frontend/node_modules/admin-lte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="../../../frontend/node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <script src="../../../frontend/node_modules/admin-lte/plugins/jquery/jquery.min.js" defer></script>
+    <script src="../../../frontend/node_modules/admin-lte/dist/js/adminlte.min.js" defer></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .login {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+        }
+        .login-logo img {
+            width: 171px;
+            height: auto;
+        }
+        .login-msg {
+            font-size: 40px;
+            text-align: center;
+            font-weight: 500;
+            color: #052C65;
+        }
+
+        .login-body {
+            width: 397px;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="login">
+    <div class="login-logo mb-5">
+        <img src="../../static/images/logo.png" alt="Логотип">
+    </div>
+    <div class="login-body">
+        <p class="login-msg">Создайте аккаунт</p>
+        <form>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <span class="far fa-user"></span>
+                    </div>
+                </div>
+                <input type="text" class="form-control" placeholder="ФИО" id="name">
+                <span id="name-error" class="error invalid-feedback">Заполните имя</span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="far fa-envelope-open"></i></span>
+                </div>
+                <input type="email" class="form-control" placeholder="Электронная почта">
+                <span id="email-error" class="error invalid-feedback">Введите корректный E-mail</span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="Пароль">
+                <span id="password-error" class="error invalid-feedback">Заполните пароль</span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="Подтверждение пароля">
+                <span id="password-repeat-error" class="error invalid-feedback">Пароли не совпадают</span>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" class="btn btn-primary btn-block" id="process-button">Войти</button>
+                </div>
+            </div>
+            <p class="mt-2">
+                Уже есть аккаунт? <a href="#">Войдите в систему</a>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>
