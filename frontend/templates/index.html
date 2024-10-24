@@ -1,0 +1,37 @@
+<section class="main">
+    <h1 class="page-title main-title">Главная</h1>
+    <div class="btn-group" role="group" aria-label="Filter by date">
+        <button type="button" class="btn btn-primary active" id="filter-today">Сегодня</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-week">Неделя</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-month">Месяц</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-year">Год</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-all">Все</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-interval">Интервал</button>
+        <div class="date-group">
+            <span>с</span>
+            <input type="text" placeholder="Дата" id="start-date">
+            <span>по</span>
+            <input type="text" placeholder="Дата" id="end-date">
+        </div>
+    </div>
+    <div class="main-pies">
+        <div class="pie-left">
+            <div class="pie-title">
+                Доходы
+            </div>
+            <div class="chart-group">
+                <canvas id="pieChart" style="min-height: 415px; height: 415px; max-width: 100%; display: block;" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="pie-right">
+            <div class="pie-title">
+                Расходы
+            </div>
+            <div class="chart-group">
+                <canvas id="pieChart-2" style="min-height: 415px; height: 415px; max-width: 100%; display: block;" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+

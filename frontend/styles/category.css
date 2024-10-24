@@ -1,0 +1,41 @@
+.category {
+    padding-top: 100px;
+    padding-left: 275px;
+}
+
+.category-title {
+    margin-bottom: 40px;
+}
+
+.category-block input {
+    width: 397px;
+    padding: 7px 0 7px 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 4px;
+}
+
+.category-block input::placeholder {
+    color: #6C757D;
+    font-size: 15px;
+}
+
+.category-block input:focus {
+    outline: none;
+}
+
+.category-block-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.category-block-buttons button {
+    width: 100px;
+}
+
+.category-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+

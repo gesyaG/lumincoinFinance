@@ -1,0 +1,45 @@
+.income {
+    padding-top: 100px;
+    padding-left: 275px;
+}
+
+.income-page-title {
+    margin-bottom: 40px;
+}
+
+.income-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.income-block {
+    padding: 20px 0 20px 20px;
+    border: 1px solid #CED4DA;
+    border-radius: 12px;
+    width: 350px;
+}
+
+.income-title {
+    font-size: 28px;
+    font-weight: 500;
+    color: #052C65;
+    margin-bottom: 5px;
+}
+
+.income-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.income-block-new {
+    position: relative;
+    cursor: pointer;
+}
+
+.income-block-new svg {
+    position: absolute;
+    top: 43%;
+    left: 47%;
+}
+

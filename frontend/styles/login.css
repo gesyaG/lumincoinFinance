@@ -1,0 +1,25 @@
+.login {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+.login-logo img {
+    width: 171px;
+    height: auto;
+}
+.login-msg {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 500;
+    color: #052C65;
+}
+
+.login-body {
+    width: 397px;
+}
+
+a {
+    text-decoration: underline;
+}
