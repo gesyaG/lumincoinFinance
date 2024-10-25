@@ -46,6 +46,7 @@ body {
     margin-left: 20px;
     font-size: 14px;
     font-weight: 500;
+    width: 93px;
 }
 
 .balance span {
@@ -103,4 +104,13 @@ body {
 
 body:not(.layout-fixed) .main-sidebar {
     height: 100vh;
+}
+
+.nav-sidebar>.nav-item {
+    width: 182px;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: center;
 }

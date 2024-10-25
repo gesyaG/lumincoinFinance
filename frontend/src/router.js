@@ -54,7 +54,7 @@ export class Router {
             },
             {
                 route: '#/expenses',
-                title: 'Доходы',
+                title: 'Расходы',
                 template: 'templates/expenses.html',
                 styles: 'styles/income.css',
                 load: () => {
@@ -62,7 +62,7 @@ export class Router {
             },
             {
                 route: '#/expenses/create',
-                title: 'Создание категории дохода',
+                title: 'Создание категории расхода',
                 template: 'templates/expenses-create.html',
                 styles: 'styles/category.css',
                 load: () => {
@@ -70,7 +70,7 @@ export class Router {
             },
             {
                 route: '#/expenses/edit',
-                title: 'Редактировани категории дохода',
+                title: 'Редактировани категории расхода',
                 template: 'templates/expenses-edit.html',
                 styles: 'styles/category.css',
                 load: () => {
@@ -104,9 +104,7 @@ export class Router {
     }
 
     async openRoute() {
-        const newRoute = this.routes.find(item => {
-            return item.route === window.location.hash.split('?')[0];
-        });
+        const newRoute = this.routes.find(item => item.route === window.location.hash.split('?')[0]);
 
         if (!newRoute) {
             window.location.href = '#/';
@@ -119,13 +117,55 @@ export class Router {
         document.getElementById('page-title').innerText = newRoute.title;
 
         const asideElement = document.querySelector('aside');
+        asideElement.style.display = (newRoute.route === '#/login' || newRoute.route === '#/sign-up') ? 'none' : 'block';
 
-        if (newRoute.route === '#/login' || newRoute.route === '#/sign-up') {
-            asideElement.style.display = 'none';
-        } else {
-            asideElement.style.display = 'block';
-        }
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const svgIcon = link.querySelector('svg');
+            const navIncome = document.getElementById('nav-income');
+            const navExpenses = document.getElementById('nav-expenses');
+            const navCategories = document.getElementById('nav-categories');
+            if (link.getAttribute('href') === newRoute.route) {
+                link.classList.add('active');
+                if (svgIcon) {
+                    svgIcon.style.fill = 'white';
+                }
+                if (newRoute.route === '#/income' || newRoute.route === '#/expenses') {
+                    navCategories.classList.add('active');
+                    navCategories.querySelectorAll('svg').forEach(svgIcon => {
+                        svgIcon.style.fill = 'white';
+                    });
+                    navCategories.style.borderBottomLeftRadius = '0';
+                    navCategories.style.borderBottomRightRadius = '0';
+                    navCategories.style.marginBottom = '0';
+                    navIncome.style.borderRadius = '0';
+                    navIncome.style.marginBottom = '0';
+                    navExpenses.style.borderTopLeftRadius = '0';
+                    navExpenses.style.borderTopRightRadius = '0';
+                    if (newRoute.route === '#/income') {
+                        navExpenses.style.borderLeft = '1px solid #0D6EFD'
+                        navExpenses.style.borderRight = '1px solid #0D6EFD'
+                        navExpenses.style.borderBottom = '1px solid #0D6EFD'
+                    }
+                    if (newRoute.route === '#/expenses') {
+                        navIncome.style.borderLeft = '1px solid #0D6EFD'
+                        navIncome.style.borderRight = '1px solid #0D6EFD'
+                    }
+                } else {
+                    navExpenses.style.border = 'none';
+                    navIncome.style.border = 'none';
+                    navCategories.querySelectorAll('svg').forEach(svgIcon => {
+                        svgIcon.style.fill = '#052C65';
+                    });
+                }
+            } else {
+                link.classList.remove('active');
+                if (svgIcon) {
+                    svgIcon.style.fill = '#052C65';
+                }
+            }
+        });
 
         newRoute.load();
     }
+
 }

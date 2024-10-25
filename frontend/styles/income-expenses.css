@@ -23,6 +23,7 @@
 .btn-group {
     font-size: 16px;
     font-weight: 500;
+    align-items: baseline;
 }
 
 .btn-group .btn {
@@ -95,4 +96,12 @@
 
 .row {
     width: 1100px;
+}
+
+.card {
+    box-shadow: 0 -1px #DEE2E6;
+}
+
+.table thead th {
+    border-bottom: none;
 }

@@ -1,4 +1,4 @@
-<div class="popup">
+<div class="popup" id="popup" style="display:flex;">
     <div class="popup-block">
         <div class="popup-text">
             Вы действительно хотите удалить категорию? Связанные доходы будут удалены навсегда.
@@ -8,7 +8,7 @@
                 <button type="button" class="btn btn-block btn-success">Да, удалить</button>
             </div>
             <div class="popup-button-nodelete">
-                <button type="button" class="btn btn-block btn-danger">Не удалять</button>
+                <button type="button" class="btn btn-block btn-danger" onclick="document.getElementById('popup').style.display='none'">Не удалять</button>
             </div>
         </div>
     </div>
