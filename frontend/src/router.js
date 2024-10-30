@@ -1,4 +1,6 @@
 import {Index} from "./components/index";
+import {Form} from "./components/form";
+import {Auth} from "./services/auth";
 
 export class Router {
     constructor() {
@@ -18,6 +20,7 @@ export class Router {
                 template: 'templates/sign-up.html',
                 styles: 'styles/login.css',
                 load: () => {
+                    new Form('signup');
                 }
             },
             {
@@ -26,6 +29,7 @@ export class Router {
                 template: 'templates/login.html',
                 styles: 'styles/login.css',
                 load: () => {
+                    new Form('login');
                 }
             },
             {
@@ -109,6 +113,14 @@ export class Router {
         if (!newRoute) {
             window.location.href = '#/';
             return;
+        }
+
+        if (newRoute.route !== '#/login' && newRoute.route !== '#/sign-up') {
+            const accessToken = localStorage.getItem(Auth.accessTokenKey);
+            if (!accessToken) {
+                window.location.href = '#/login';
+                return;
+            }
         }
 
         document.getElementById('content').innerHTML =
