@@ -114,3 +114,20 @@ body:not(.layout-fixed) .main-sidebar {
     display: flex;
     justify-content: center;
 }
+
+.profile-block {
+    position: relative;
+}
+
+.logout {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    box-shadow: 2px 2px 8px #00000073;
+    background-color: white;
+    left: 30%;
+}
+
+#avatar {
+    cursor: pointer;
+}

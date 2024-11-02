@@ -9,7 +9,7 @@ export class Form {
         this.page = page;
 
         const accessToken = localStorage.getItem(Auth.accessTokenKey);
-        if (accessToken) {
+        if (accessToken && this.page === 'signup') {
             location.href = '#/';
             return;
         }
@@ -37,7 +37,7 @@ export class Form {
                     name: 'name',
                     id: 'name',
                     element: null,
-                    regex: /^[А-ЯЁ][а-яё]+(?:\s[А-ЯЁ][а-яё]+)*$/,
+                    regex: /^[А-ЯЁ][а-яё]+(?:\s[А-ЯЁ][а-яё]+){2}$/,
                     valid: false,
                 },
             )
@@ -126,6 +126,8 @@ export class Form {
             }
 
             try {
+                this.commonErrorMeElement = document.getElementById('common-error');
+                this.commonErrorMeElement.style.display = 'none';
                 const result = await CustomHttp.request(config.host + '/login', 'POST', {
                     email: email,
                     password: password,
@@ -148,6 +150,8 @@ export class Form {
 
                     location.href = "#/";
                 }
+
+                this.commonErrorMeElement.style.display = 'block';
             } catch (error) {
                 console.log(error);
             }

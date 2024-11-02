@@ -110,6 +110,13 @@ export class Router {
     async openRoute() {
         const newRoute = this.routes.find(item => item.route === window.location.hash.split('?')[0]);
 
+        const urlRoute = window.location.hash.split('?')[0];
+        if (urlRoute === '#/logout') {
+            await Auth.logout();
+            window.location.href = '#/login';
+            return;
+        }
+
         if (!newRoute) {
             window.location.href = '#/';
             return;
@@ -178,6 +185,15 @@ export class Router {
         });
 
         newRoute.load();
+
+        document.getElementById('avatar').addEventListener('click', () => {
+            const logoutDialog = document.getElementById('logout');
+            if (logoutDialog.style.display === 'block') {
+                logoutDialog.style.display = 'none';
+            } else {
+                logoutDialog.style.display = 'block';
+            }
+        });
     }
 
 }
