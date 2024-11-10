@@ -25,6 +25,7 @@ module.exports = {
             patterns: [
                 {from: "templates", to: "templates"},
                 {from: "styles", to: "styles"},
+                {from: "src/components", to: "scripts"},
                 {from: "static/images", to: "images"},
                 {from: "./node_modules/admin-lte/dist/css/adminlte.min.css", to: "styles"},
                 {from: "./node_modules/admin-lte/dist/js/adminlte.min.js", to: "scripts"},

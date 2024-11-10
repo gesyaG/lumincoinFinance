@@ -74,4 +74,13 @@ export class Auth {
         localStorage.removeItem(this.refreshTokenKey);
     }
 
+    static getUserInfo() {
+        const userInfo = localStorage.getItem(this.userInfoKey);
+        if (userInfo) {
+            return JSON.parse(userInfo);
+        }
+
+        return null;
+    }
+
 }

@@ -1,6 +1,7 @@
 import {Index} from "./components/index";
 import {Form} from "./components/form";
 import {Auth} from "./services/auth";
+import {Common} from "./components/common";
 
 export class Router {
     constructor() {
@@ -128,6 +129,8 @@ export class Router {
                 window.location.href = '#/login';
                 return;
             }
+
+            new Common();
         }
 
         document.getElementById('content').innerHTML =
