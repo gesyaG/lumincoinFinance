@@ -123,15 +123,18 @@ export class Router {
             return;
         }
 
-        if (newRoute.route !== '#/login' && newRoute.route !== '#/sign-up') {
-            const accessToken = localStorage.getItem(Auth.accessTokenKey);
-            if (!accessToken) {
-                window.location.href = '#/login';
-                return;
-            }
-
+        const userInfo = Auth.getUserInfo();
+        const accessToken = localStorage.getItem(Auth.accessTokenKey);
+        if (userInfo && accessToken) {
             new Common();
+        } else {
+            const currentHash = window.location.hash;
+
+            if (currentHash !== '#/login' && currentHash !== '#/sign-up') {
+                window.location.replace('#/login');
+            }
         }
+
 
         document.getElementById('content').innerHTML =
             await fetch(newRoute.template).then(response => response.text());
@@ -198,5 +201,4 @@ export class Router {
             }
         });
     }
-
 }

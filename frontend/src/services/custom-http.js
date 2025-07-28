@@ -2,7 +2,6 @@ import {Auth} from "./auth.js";
 
 export class CustomHttp {
     static async request(url, method = 'GET', body = null) {
-
         const params = {
             method: method,
             headers: {
@@ -10,15 +9,15 @@ export class CustomHttp {
                 'Accept': 'application/json',
             }
         };
+
         let token = localStorage.getItem(Auth.accessTokenKey);
         if (token) {
-            params.headers['x-access-token'] = token;
+            params.headers['x-auth-token'] = token; // Заменили заголовок
         }
 
         if (body) {
             params.body = JSON.stringify(body);
         }
-
 
         const response = await fetch(url, params);
 
@@ -26,6 +25,10 @@ export class CustomHttp {
             if (response.status === 401) {
                 const result = await Auth.processUnauthorizedResponse();
                 if (result) {
+                    let newToken = localStorage.getItem(Auth.accessTokenKey);
+                    if (newToken) {
+                        params.headers['x-auth-token'] = newToken; // Используем новый токен
+                    }
                     return await this.request(url, method, body);
                 } else {
                     return null;

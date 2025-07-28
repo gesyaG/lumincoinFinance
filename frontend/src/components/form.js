@@ -128,33 +128,46 @@ export class Form {
             try {
                 this.commonErrorMeElement = document.getElementById('common-error');
                 this.commonErrorMeElement.style.display = 'none';
+
                 const result = await CustomHttp.request(config.host + '/login', 'POST', {
                     email: email,
                     password: password,
                 });
 
-                if (result) {
-                    const { tokens, user } = result;
-                    if (!tokens || !tokens.accessToken || !tokens.refreshToken || !user || !user.name || !user.id) {
-                        throw new Error(result.message || 'Ошибка авторизации');
-                    }
-
-                    Auth.setTokens(tokens.accessToken, tokens.refreshToken);
-
-                    Auth.setUserInfo({
-                        fullName: `${user.name} ${user.lastName}`,
-                        userId: user.id
-                    });
-
-                    Auth.setUserEmail({ email: email });
-
-                    location.href = "#/";
+                // Проверяем, что ответ пришел и является объектом
+                if (!result || typeof result !== 'object') {
+                    throw new Error('Некорректный ответ от сервера');
                 }
 
-                this.commonErrorMeElement.style.display = 'block';
+                // Проверяем, есть ли в ответе данные
+
+                if (!result.tokens || !result.tokens.accessToken || !result.tokens.refreshToken ||
+                    !result.user || !result.user.name || !result.user.lastName || !result.user.id) {
+                    throw new Error(result.message || 'Ошибка авторизации');
+                }
+
+                // Сохраняем токены
+                Auth.setTokens(result.tokens.accessToken, result.tokens.refreshToken);
+
+                // Сохраняем информацию о пользователе
+                Auth.setUserInfo({
+                    fullName: `${result.user.name} ${result.user.lastName}`,
+                    userId: result.user.id,
+                    email: email
+                });
+
+                // Перенаправляем на главную страницу
+                location.href = "#/";
             } catch (error) {
                 console.log(error);
+
+                // Показываем ошибку
+                if (this.commonErrorMeElement) {
+                    this.commonErrorMeElement.innerText = error.message;
+                    this.commonErrorMeElement.style.display = 'block';
+                }
             }
+
         }
     }
 }

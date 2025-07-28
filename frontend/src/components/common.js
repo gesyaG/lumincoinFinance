@@ -6,7 +6,7 @@ export class Common {
     constructor() {
         this.balance = null;
 
-        this.init().then();
+        this.init();
     }
 
     async init() {
@@ -28,7 +28,6 @@ export class Common {
 
     getBalance() {
         const balanceElement = document.getElementById('balance');
-
         balanceElement.innerText = this.balance;
     }
 }
