@@ -106,7 +106,7 @@ export class Form {
                 const lastName = lastNameArr.join(' ');
 
                 try {
-                    const result = await CustomHttp.request(config.host + '/signup', 'POST', {
+                    const result = await CustomHttp.request('/signup', 'POST', {
                         name: name,
                         lastName: lastName,
                         email: email,
@@ -129,7 +129,7 @@ export class Form {
                 this.commonErrorMeElement = document.getElementById('common-error');
                 this.commonErrorMeElement.style.display = 'none';
 
-                const result = await CustomHttp.request(config.host + '/login', 'POST', {
+                const result = await CustomHttp.request('/login', 'POST', {
                     email: email,
                     password: password,
                 });

@@ -1,4 +1,5 @@
 import {Auth} from "./auth.js";
+import config from "../../config/config.js";
 
 export class CustomHttp {
     static async request(url, method = 'GET', body = null) {
@@ -12,14 +13,14 @@ export class CustomHttp {
 
         let token = localStorage.getItem(Auth.accessTokenKey);
         if (token) {
-            params.headers['x-auth-token'] = token; // Заменили заголовок
+            params.headers['x-auth-token'] = token; 
         }
 
         if (body) {
             params.body = JSON.stringify(body);
         }
 
-        const response = await fetch(url, params);
+        const response = await fetch(config.host + url, params);
 
         if (response.status < 200 || response.status >= 300) {
             if (response.status === 401) {
@@ -27,7 +28,7 @@ export class CustomHttp {
                 if (result) {
                     let newToken = localStorage.getItem(Auth.accessTokenKey);
                     if (newToken) {
-                        params.headers['x-auth-token'] = newToken; // Используем новый токен
+                        params.headers['x-auth-token'] = newToken; 
                     }
                     return await this.request(url, method, body);
                 } else {

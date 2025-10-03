@@ -1,13 +1,14 @@
 <section class="category">
     <h1 class="page-title category-title">Редактирование категории расходов</h1>
     <div class="category-block">
-        <input type="text" placeholder="Название...">
+        <input type="text" placeholder="Название..." id="EditCategoryInput">
+        <div class="error-message" id="editExpenseCategoryError"></div>
         <div class="category-block-buttons">
             <div class="category-button-create">
-                <button type="button" class="btn btn-block btn-success">Сохранить</button>
+                <button type="button" class="btn btn-block btn-success" id="saveBtn">Сохранить</button>
             </div>
             <div class="popup-button-cancel">
-                <button type="button" class="btn btn-block btn-danger">Отменить</button>
+                <button type="button" class="btn btn-block btn-danger" id="cancelBtn">Отменить</button>
             </div>
         </div>
     </div>

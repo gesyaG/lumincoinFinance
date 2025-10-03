@@ -1,0 +1,36 @@
+<section class="category">
+    <h1 class="page-title category-title">Создание дохода/расхода</h1>
+    <div class="category-block">
+        <div class="category-inputs">
+            <select id="input-type" class="form-control">
+                <option value="">Выберите тип...</option>
+                <option value="income">Доход</option>
+                <option value="expense">Расход</option>
+            </select>
+            <div class="error-message" id="error-type"></div>
+
+            <select id="input-category" class="form-control">
+                <option value="">Выберите категорию...</option>
+            </select>
+            <div class="error-message" id="error-category"></div>
+
+            <input type="number" id="input-amount" class="form-control" placeholder="Сумма в $..." min="0.01" step="0.01">
+            <div class="error-message" id="error-amount"></div>
+
+            <input type="date" id="input-date" class="form-control">
+            <div class="error-message" id="error-date"></div>
+
+            <textarea id="input-comment" class="form-control" placeholder="Комментарий..."></textarea>
+            <div class="error-message" id="error-comment"></div>
+        </div>
+
+        <div class="category-block-buttons">
+            <div class="category-button-create">
+                <button type="button" class="btn btn-block btn-success" id="button-create">Создать</button>
+            </div>
+            <div class="popup-button-cancel">
+                <button type="button" class="btn btn-block btn-danger" id="button-cancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+</section>

@@ -131,3 +131,10 @@ body:not(.layout-fixed) .main-sidebar {
 #avatar {
     cursor: pointer;
 }
+
+#user-name {
+    cursor: pointer;
+    max-width: 100%;           
+    white-space: normal;      
+
+}

@@ -7,20 +7,52 @@
     margin-bottom: 40px;
 }
 
-.category-block input {
+.category-block input,
+.category-block select,
+.category-block textarea {
     width: 397px;
-    padding: 7px 0 7px 16px;
+    padding: 7px 12px;
     border: 1px solid #CED4DA;
     border-radius: 4px;
+    font-size: 15px;
+    font-family: inherit;
+    background-color: #fff;
+    box-sizing: border-box;
+    line-height: 1.4;
 }
 
-.category-block input::placeholder {
+.category-block select {
+    padding-right: 28px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px 16px;
+}
+
+.category-block input[type="date"] {
+    position: relative;
+}
+
+.category-block input::placeholder,
+.category-block textarea::placeholder {
     color: #6C757D;
     font-size: 15px;
 }
 
-.category-block input:focus {
+.category-block input:focus,
+.category-block select:focus,
+.category-block textarea:focus {
     outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.category-block textarea {
+    min-height: 80px;
+    resize: vertical;
 }
 
 .category-block-buttons {
@@ -39,3 +71,13 @@
     gap: 10px;
 }
 
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+}
+
+.input-error {
+    border: 1px solid red !important;
+}

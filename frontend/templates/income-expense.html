@@ -1,0 +1,62 @@
+<div class="popup">
+    <div class="popup-block">
+        <div class="popup-text">
+            Вы действительно хотите удалить эту операцию?
+        </div>
+        <div class="popup-buttons">
+            <div class="popup-button-delete">
+                <button type="button" class="btn btn-block btn-success">Да, удалить</button>
+            </div>
+            <div class="popup-button-nodelete">
+                <button type="button" class="btn btn-block btn-danger">Не удалять</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="income-expense">
+    <h1 class="page-title income-expense-page-title">Доходы и расходы</h1>
+    <div class="category-block-buttons">
+        <div class="category-button-create">
+            <button type="button" class="btn btn-block btn-success" id="create-income">Создать доход</button>
+        </div>
+        <div class="popup-button-cancel">
+            <button type="button" class="btn btn-block btn-danger" id="create-expense">Создать расход</button>
+        </div>
+    </div>
+    <div class="btn-group" role="group" aria-label="Filter by date">
+        <button type="button" class="btn btn-primary active" id="filter-today">Сегодня</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-week">Неделя</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-month">Месяц</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-year">Год</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-all">Все</button>
+        <button type="button" class="btn btn-outline-secondary" id="filter-interval">Интервал</button>
+        <div class="date-group">
+            <span>с</span>
+            <input type="date" id="start-date">
+            <span>по</span>
+            <input type="date" id="end-date">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>№ операции</th>
+                            <th>Тип</th>
+                            <th>Категория</th>
+                            <th>Сумма</th>
+                            <th>Дата</th>
+                            <th>Комментарий</th>
+                        </tr>
+                        </thead>
+                        <tbody id="records"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,29 +9,27 @@
         <button type="button" class="btn btn-outline-secondary" id="filter-interval">Интервал</button>
         <div class="date-group">
             <span>с</span>
-            <input type="text" placeholder="Дата" id="start-date">
+            <input type="date" id="start-date">
             <span>по</span>
-            <input type="text" placeholder="Дата" id="end-date">
+            <input type="date" id="end-date">
         </div>
     </div>
+
     <div class="main-pies">
         <div class="pie-left">
-            <div class="pie-title">
-                Доходы
-            </div>
+            <div class="pie-title">Доходы</div>
             <div class="chart-group">
-                <canvas id="pieChart" style="min-height: 415px; height: 415px; max-width: 100%; display: block;" class="chartjs-render-monitor"></canvas>
+                <canvas id="pieChart" style="min-height: 415px; height: 415px; max-width: 100%;"></canvas>
             </div>
         </div>
+
         <div class="vertical-line"></div>
+
         <div class="pie-right">
-            <div class="pie-title">
-                Расходы
-            </div>
+            <div class="pie-title">Расходы</div>
             <div class="chart-group">
-                <canvas id="pieChart-2" style="min-height: 415px; height: 415px; max-width: 100%; display: block;" class="chartjs-render-monitor"></canvas>
+                <canvas id="pieChart-2" style="min-height: 415px; height: 415px; max-width: 100%;"></canvas>
             </div>
         </div>
     </div>
 </section>
-
