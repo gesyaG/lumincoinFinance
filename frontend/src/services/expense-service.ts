@@ -1,44 +1,44 @@
-import { CustomHttp } from "./custom-http.js";
+import { CustomHttp } from "./custom-http";
+import {ReturnCategoriesObjectType} from "../types/return-categories-object.type";
+import {CategoryType} from "../types/category.type";
+import {DataCategoryType} from "../types/data-category.type";
 
-export class IncomeService {
-    static async getIncomeCategories() {
-        const returnObject = {
+export class ExpenseService {
+    public static async getExpenseCategories(): Promise<ReturnCategoriesObjectType>  {
+        const returnObject: ReturnCategoriesObjectType = {
             error: false,
             categories: null,
         };
 
-        try {
-            const result = await CustomHttp.request('/categories/income');
+        const result: ReturnCategoriesObjectType  = await CustomHttp.request('/categories/expense');
 
-            if (!result || !Array.isArray(result)) {
-                returnObject.error = 'Ошибка при запросе категорий доходов. Обратитесь в поддержку';
-                return returnObject;
-            }
-
-            returnObject.categories = result;
-            return returnObject;
-
-        } catch (e) {
-            returnObject.error = e.message || 'Неизвестная ошибка';
+        if (!result || !Array.isArray(result)) {
+            returnObject.error = true;
             return returnObject;
         }
+
+        returnObject.categories = result;
+        return returnObject;
     }
 
-    static async deleteIncomeCategory(id) {
+    public static async deleteExpenseCategory(id: number): Promise<CategoryType> {
         try {
             return await CustomHttp.request(
-                `/categories/income/${id}`,
+                `/categories/expense/${id}`,
                 'DELETE'
             );
         } catch (e) {
             console.error('Ошибка удаления категории:', e);
-            return null;
+            return {
+                error: true,
+                message: 'Ошибка удаления категории',
+            };
         }
     }
 
-    static async createIncomeCategory(data) {
+    public static async createExpenseCategory(data: DataCategoryType): Promise<CategoryType>  {
         try {
-            const result = await CustomHttp.request('/categories/income', 'POST', data);
+            const result: CategoryType = await CustomHttp.request('/categories/expense', 'POST', data);
 
             if (result.error) {
                 return {
@@ -59,9 +59,9 @@ export class IncomeService {
         }
     }
 
-    static async getIncomeCategory(id) {
+    public static async getExpenseCategory(id: number): Promise<CategoryType> {
      try {
-            const result = await CustomHttp.request('/categories/income/' + id);
+            const result: CategoryType = await CustomHttp.request('/categories/expense/' + id);
 
             if (result.error) {
                 return {
@@ -82,9 +82,9 @@ export class IncomeService {
         }
     }
 
-    static async editIncomeCategory(id, data) {
+    public static async editExpenseCategory(id: number, data: CategoryType): Promise<CategoryType> {
         try {
-            const result = await CustomHttp.request('/categories/income/' + id, 'PUT', data);
+            const result: CategoryType = await CustomHttp.request('/categories/expense/' + id, 'PUT', data);
 
             if (result.error) {
             return {
@@ -93,10 +93,9 @@ export class IncomeService {
             };
             }
 
-            return { error: false, category: result };
+            return { error: false, title: result.toString() };
         } catch (e) {
             return { error: true, message: 'Ошибка сети или сервера' };
         }
     }
-
 }

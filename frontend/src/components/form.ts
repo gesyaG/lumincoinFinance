@@ -1,14 +1,21 @@
-import {CustomHttp} from "../services/custom-http.js";
-import {Auth} from "../services/auth.js";
-import config from "../../config/config.js";
+import {CustomHttp} from "../services/custom-http";
+import {Auth} from "../services/auth";
+import {FormFieldType} from "../types/form-field.type";
+import {SignupResponseType} from "../types/signup-response.type";
+import {LoginResponseType} from "../types/login-response.type";
 
 export class Form {
+    private commonErrorMeElement: HTMLElement | null;
+    readonly processElement: HTMLElement | null;
+    readonly page: 'signup' | 'login';
+    private  fields: FormFieldType[] = [];
 
-    constructor(page) {
+    constructor(page: 'signup' | 'login') {
+        this.commonErrorMeElement = null;
         this.processElement = null;
         this.page = page;
 
-        const accessToken = localStorage.getItem(Auth.accessTokenKey);
+        const accessToken: string | null = localStorage.getItem(Auth.accessTokenKey);
         if (accessToken && this.page === 'signup') {
             location.href = '#/';
             return;
@@ -53,25 +60,50 @@ export class Form {
         }
 
         const that = this;
-        this.fields.forEach(item => {
-            item.element = document.getElementById(item.id);
-            item.element.onchange = function () {
-                that.validateField.call(that, item, this);
+        this.fields.forEach((item: FormFieldType) => {
+            item.element = document.getElementById(item.id) as HTMLInputElement;
+            if (item.element) {
+                item.element.onchange = function () {
+                    that.validateField.call(that, item, <HTMLInputElement>this);
+                }
             }
         })
 
         this.processElement = document.getElementById('process-button');
-        this.processElement.onclick = function () {
-            that.processForm();
+        if (this.processElement) {
+            this.processElement.onclick = function () {
+                that.processForm();
+            }
         }
     }
 
-    validateField(field, element) {
+    private validateField(field: FormFieldType, element: HTMLInputElement): void {
         if (field.id === 'confirm-password') {
-            const passwordValue = this.fields.find(f => f.id === 'password').element.value;
+            const passwordField: FormFieldType | undefined = this.fields.find(f => f.id === 'password');
+            const passwordValue: string = passwordField?.element instanceof HTMLInputElement
+                ? passwordField.element.value
+                : '';
+
             field.valid = element.value === passwordValue;
         } else {
-            field.valid = element.value && element.value.match(field.regex);
+            const value: string = element.value ?? '';
+
+            const regex = (field as any).regex as RegExp | string | undefined;
+            let matches: boolean = false;
+
+            if (value && regex) {
+                if (regex instanceof RegExp) {
+                    matches = regex.test(value);
+                } else if (typeof regex === 'string') {
+                    try {
+                        matches = new RegExp(regex).test(value);
+                    } catch {
+                        matches = false;
+                    }
+                }
+            }
+
+            field.valid = matches;
         }
 
         if (!field.valid) {
@@ -83,8 +115,9 @@ export class Form {
         this.validateForm();
     }
 
-    validateForm() {
-        const validForm = this.fields.every(item => item.valid);
+    private validateForm(): boolean {
+        const validForm: boolean = this.fields.every(item => item.valid);
+        if (!this.processElement) return false;
         if (validForm) {
             this.processElement.removeAttribute('disabled');
         } else {
@@ -93,25 +126,25 @@ export class Form {
         return validForm;
     }
 
-    async processForm() {
+    private async processForm(): Promise<void> {
         if (this.validateForm()) {
-            const email = this.fields.find(item => item.name === 'email').element.value;
-            const password = this.fields.find(item => item.name === 'password').element.value;
+            const email = this.fields.find(item => item.name === 'email')?.element?.value;
+            const password = this.fields.find(item => item.name === 'password')?.element?.value;
 
 
             if (this.page === 'signup') {
-                const fullName = this.fields.find(item => item.name === 'name').element.value.trim();
+                const fullName = this.fields.find(item => item.name === 'name')?.element?.value.trim() ?? '';
 
                 const [name, ...lastNameArr] = fullName.split(' ');
                 const lastName = lastNameArr.join(' ');
 
                 try {
-                    const result = await CustomHttp.request('/signup', 'POST', {
+                    const result: SignupResponseType = await CustomHttp.request('/signup', 'POST', {
                         name: name,
                         lastName: lastName,
                         email: email,
                         password: password,
-                        passwordRepeat: this.fields.find(item => item.name === 'confirmPassword').element.value
+                        passwordRepeat: this.fields.find(item => item.name === 'confirmPassword')?.element?.value
                     });
                     if (result) {
                         if (result.error || !result.user) {
@@ -127,9 +160,11 @@ export class Form {
 
             try {
                 this.commonErrorMeElement = document.getElementById('common-error');
-                this.commonErrorMeElement.style.display = 'none';
+                if (this.commonErrorMeElement) {
+                    this.commonErrorMeElement.style.display = 'none';
+                }
 
-                const result = await CustomHttp.request('/login', 'POST', {
+                const result: LoginResponseType = await CustomHttp.request('/login', 'POST', {
                     email: email,
                     password: password,
                 });
@@ -140,7 +175,6 @@ export class Form {
                 }
 
                 // Проверяем, есть ли в ответе данные
-
                 if (!result.tokens || !result.tokens.accessToken || !result.tokens.refreshToken ||
                     !result.user || !result.user.name || !result.user.lastName || !result.user.id) {
                     throw new Error(result.message || 'Ошибка авторизации');
@@ -153,17 +187,17 @@ export class Form {
                 Auth.setUserInfo({
                     fullName: `${result.user.name} ${result.user.lastName}`,
                     userId: result.user.id,
-                    email: email
+                    email: email ?? ''
                 });
 
                 // Перенаправляем на главную страницу
                 location.href = "#/";
             } catch (error) {
                 console.log(error);
-
+                const err = error as Error;
                 // Показываем ошибку
                 if (this.commonErrorMeElement) {
-                    this.commonErrorMeElement.innerText = error.message;
+                    this.commonErrorMeElement.innerText = err.message;
                     this.commonErrorMeElement.style.display = 'block';
                 }
             }

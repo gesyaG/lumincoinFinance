@@ -1,5 +1,5 @@
 export class CommonUtils {
-    static generateGridToolsColumn(id) {
+    static generateGridToolsColumn(id: number): string {
         return `
             <div class="income-expense-tools flex">
                 <button class="btn-delete" data-id="${id}" style="background:none;border:none;cursor:pointer;">

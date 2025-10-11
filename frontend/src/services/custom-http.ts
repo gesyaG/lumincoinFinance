@@ -1,9 +1,9 @@
-import {Auth} from "./auth.js";
-import config from "../../config/config.js";
+import {Auth} from "./auth";
+import config from "../../config/config";
 
 export class CustomHttp {
-    static async request(url, method = 'GET', body = null) {
-        const params = {
+    public static async request(url: string, method: string = 'GET', body: any = null): Promise<any> {
+        const params: any = {
             method: method,
             headers: {
                 'Content-type': 'application/json',
@@ -11,7 +11,7 @@ export class CustomHttp {
             }
         };
 
-        let token = localStorage.getItem(Auth.accessTokenKey);
+        let token: string | null = localStorage.getItem(Auth.accessTokenKey);
         if (token) {
             params.headers['x-auth-token'] = token; 
         }
@@ -20,13 +20,13 @@ export class CustomHttp {
             params.body = JSON.stringify(body);
         }
 
-        const response = await fetch(config.host + url, params);
+        const response: Response = await fetch(config.host + url, params);
 
         if (response.status < 200 || response.status >= 300) {
             if (response.status === 401) {
-                const result = await Auth.processUnauthorizedResponse();
+                const result:boolean = await Auth.processUnauthorizedResponse();
                 if (result) {
-                    let newToken = localStorage.getItem(Auth.accessTokenKey);
+                    let newToken: string | null = localStorage.getItem(Auth.accessTokenKey);
                     if (newToken) {
                         params.headers['x-auth-token'] = newToken; 
                     }
@@ -36,7 +36,7 @@ export class CustomHttp {
                 }
             }
 
-            throw new Error(response.message);
+            throw new Error(response.statusText);
         }
 
         return await response.json();
