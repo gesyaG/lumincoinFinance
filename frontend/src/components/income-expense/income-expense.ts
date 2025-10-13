@@ -98,15 +98,26 @@ export class IncomeExpense {
 
 
         setHandler('filter-interval', () => {
-            const dateFrom: string = (document.getElementById('start-date') as HTMLInputElement)?.value;
-            const dateTo: string = (document.getElementById('end-date') as HTMLInputElement)?.value;
+            const dateFromInput = document.getElementById('start-date') as HTMLInputElement | null;
+            const dateToInput = document.getElementById('end-date') as HTMLInputElement | null;
 
-            if (!dateFrom || !dateTo) {
-                alert("Укажите обе даты!");
-                return;
+            if (!dateFromInput || !dateToInput) return;
+
+            const updateInterval = () => {
+                const dateFrom = dateFromInput.value;
+                const dateTo = dateToInput.value;
+
+                if (dateFrom && dateTo) {
+                    this.setActiveButton(document.getElementById('filter-interval'));
+                    this.getIncomeExpense({ dateFrom, dateTo });
+                }
+            };
+
+            if (dateFromInput.value && dateToInput.value) {
+                updateInterval();
             }
-
-            this.getIncomeExpense({ dateFrom, dateTo });
+            dateFromInput.addEventListener('change', updateInterval);
+            dateToInput.addEventListener('change', updateInterval);
         });
     }
 

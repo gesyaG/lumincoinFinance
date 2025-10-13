@@ -87,14 +87,13 @@ export class Form {
             field.valid = element.value === passwordValue;
         } else {
             const value: string = element.value ?? '';
-
-            const regex = (field as any).regex as RegExp | string | undefined;
+            const regex: RegExp | null = field.regex;
             let matches: boolean = false;
 
             if (value && regex) {
                 if (regex instanceof RegExp) {
                     matches = regex.test(value);
-                } else if (typeof regex === 'string') {
+                } else {
                     try {
                         matches = new RegExp(regex).test(value);
                     } catch {

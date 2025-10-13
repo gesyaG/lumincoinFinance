@@ -9,3 +9,8 @@ export type IncomeExpenseListType = {
     "comment": string,
     "category" : string,
 }
+
+export type IncomeExpenseRecordWithCategory = IncomeExpenseListType & {
+    category_name?: string;
+    categoryTitle?: string;
+};

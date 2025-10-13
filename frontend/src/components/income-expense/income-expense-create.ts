@@ -3,6 +3,7 @@ import {IncomeService} from "../../services/income-service";
 import {ExpenseService} from "../../services/expense-service";
 import {IncomeExpenseRecordsReturnType} from "../../types/income-expense-records-return.type";
 import {DataRecordsType} from "../../types/data-records.type";
+import {ConstructorGeneric} from "../../utils/constructor-generic";
 
 export class IncomeExpenseCreate {
     readonly openNewRoute: () => Promise<void>;
@@ -22,19 +23,19 @@ export class IncomeExpenseCreate {
     constructor(openNewRoute: () => Promise<void>) {
         this.openNewRoute = openNewRoute;
 
-        this.typeInput = document.getElementById('input-type') as HTMLInputElement;
-        this.categoryInput = document.getElementById('input-category') as HTMLInputElement;
-        this.amountInput = document.getElementById('input-amount') as HTMLInputElement;
-        this.dateInput = document.getElementById('input-date') as HTMLInputElement;
-        this.commentInput = document.getElementById('input-comment') as HTMLInputElement;
-        this.createBtn = document.getElementById('button-create');
-        this.cancelBtn = document.getElementById('button-cancel');
+        this.typeInput = ConstructorGeneric.getElementById<HTMLInputElement>('input-type');
+        this.categoryInput = ConstructorGeneric.getElementById<HTMLInputElement>('input-category');
+        this.amountInput = ConstructorGeneric.getElementById<HTMLInputElement>('input-amount');
+        this.dateInput = ConstructorGeneric.getElementById<HTMLInputElement>('input-date');
+        this.commentInput = ConstructorGeneric.getElementById<HTMLInputElement>('input-comment');
+        this.createBtn = ConstructorGeneric.getElementById<HTMLButtonElement>('button-create');
+        this.cancelBtn = ConstructorGeneric.getElementById<HTMLButtonElement>('button-cancel');
 
-        this.errorType = document.getElementById('error-type');
-        this.errorCategory = document.getElementById('error-category');
-        this.errorAmount = document.getElementById('error-amount');
-        this.errorDate = document.getElementById('error-date');
-        this.errorComment = document.getElementById('error-comment');
+        this.errorType = ConstructorGeneric.getElementById<HTMLDivElement>('error-type');
+        this.errorCategory = ConstructorGeneric.getElementById<HTMLDivElement>('error-category');
+        this.errorAmount = ConstructorGeneric.getElementById<HTMLDivElement>('error-amount');
+        this.errorDate = ConstructorGeneric.getElementById<HTMLDivElement>('error-date');
+        this.errorComment = ConstructorGeneric.getElementById<HTMLDivElement>('error-comment');
 
         this.initDatePlaceholder();
         this.initTypeFromRoute();

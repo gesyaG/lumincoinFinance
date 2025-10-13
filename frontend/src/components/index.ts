@@ -1,13 +1,13 @@
 import { IncomeExpenseService } from "../services/income-expense-service";
 import {PieDataType} from "../types/pie-data.type";
 import {IncomeExpenseRecordsReturnType} from "../types/income-expense-records-return.type";
-import {IncomeExpenseListType} from "../types/income-expense-list.type";
+import {IncomeExpenseListType, IncomeExpenseRecordWithCategory} from "../types/income-expense-list.type";
 import {DateFilter} from "../types/data-filter.type";
 import {Chart} from 'chart.js';
 
 export class Index {
-    private pieIncome: any = null;
-    private pieExpense: any = null;
+    private pieIncome: Chart | null = null;
+    private pieExpense: Chart | null = null;
     readonly formatDate: (date: Date) => string | undefined;
 
     constructor() {
@@ -61,16 +61,27 @@ export class Index {
             this.loadData({ dateFrom: "2000-01-01", dateTo: today });
         });
 
-        setHandler("filter-interval", (): void => {
-            const dateFrom: string = (document.getElementById('start-date') as HTMLInputElement)?.value;
-            const dateTo: string = (document.getElementById('end-date') as HTMLInputElement)?.value;
+        setHandler('filter-interval', () => {
+            const dateFromInput = document.getElementById('start-date') as HTMLInputElement | null;
+            const dateToInput = document.getElementById('end-date') as HTMLInputElement | null;
 
-            if (!dateFrom || !dateTo) {
-                alert("Укажите обе даты!");
-                return;
+            if (!dateFromInput || !dateToInput) return;
+
+            const updateInterval = () => {
+                const dateFrom = dateFromInput.value;
+                const dateTo = dateToInput.value;
+
+                if (dateFrom && dateTo) {
+                    this.setActiveButton(document.getElementById('filter-interval'));
+                    this.loadData({ dateFrom, dateTo });
+                }
+            };
+
+            if (dateFromInput.value && dateToInput.value) {
+                updateInterval();
             }
-
-            this.loadData({ dateFrom, dateTo });
+            dateFromInput.addEventListener('change', updateInterval);
+            dateToInput.addEventListener('change', updateInterval);
         });
     }
 
@@ -100,8 +111,12 @@ export class Index {
         this.renderChart("pieChart-2", expenseRecords, false);
     }
 
-    private renderChart(canvasId: string, records: IncomeExpenseListType[] | undefined, isIncome: boolean): void {
-        if (!records || !records.length) return;
+    private renderChart(
+        canvasId: string,
+        records: IncomeExpenseRecordWithCategory[] | undefined,
+        isIncome: boolean
+    ): void {
+        if (!records?.length) return;
 
         const canvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
         if (!canvas) return;
@@ -111,13 +126,9 @@ export class Index {
 
         const grouped: Record<string, number> = {};
 
-        for (const r of records) {
-            const cat: string =
-                r.category ||
-                (r as any).category_name ||
-                (r as any).categoryTitle ||
-                "Без категории";
-            grouped[cat] = (grouped[cat] || 0) + r.amount;
+        for (const record of records) {
+            const category: string = record.category ?? record.category_name ?? record.categoryTitle ?? "Без категории";
+            grouped[category] = (grouped[category] || 0) + record.amount;
         }
 
         const labels: string[] = Object.keys(grouped);
@@ -154,5 +165,6 @@ export class Index {
             }
         }
     }
+
 
 }
